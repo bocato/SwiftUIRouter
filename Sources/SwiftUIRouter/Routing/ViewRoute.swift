@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol ViewRoute: Identifiable {
+public protocol ViewRoute: Identifiable, Equatable {
     static var identifier: String { get }
 }
 public extension ViewRoute {
@@ -21,6 +21,6 @@ public struct AnyViewRoute: ViewRoute {
     }
 
     public static func == (lhs: AnyViewRoute, rhs: AnyViewRoute) -> Bool {
-        lhs.id == rhs.id
+        type(of: lhs).identifier == type(of: rhs).identifier
     }
 }
