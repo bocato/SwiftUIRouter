@@ -46,10 +46,6 @@ public extension DependenciesContainerInterface {
 
 /// The concrete implementation of a dependency store
 public final class DependenciesContainer: DependenciesContainerInterface {
-    // MARK: - Singleton
-
-    public static let shared = DependenciesContainer()
-
     // MARK: - Properties
 
     var dependencyInstances = NSMapTable<NSString, AnyStorableDependency>(

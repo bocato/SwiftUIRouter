@@ -15,7 +15,6 @@ public typealias DependencyResolverFailureHandler = (String) -> Void
 public final class Dependency<T>: Resolvable {
     // MARK: - Dependencies
 
-    private var container: DependenciesContainerInterface
     private let failureHandler: DependencyResolverFailureHandler
 
     // MARK: - Properties
@@ -23,7 +22,7 @@ public final class Dependency<T>: Resolvable {
     private(set) var resolvedValue: T!
     public var wrappedValue: T {
         if resolvedValue == nil {
-            resolve(withContainer: container)
+
         }
         return resolvedValue
     }
@@ -32,11 +31,9 @@ public final class Dependency<T>: Resolvable {
 
     required init(
         resolvedValue: T?,
-        container: DependenciesContainerInterface = DependenciesContainer.shared,
         failureHandler: @escaping DependencyResolverFailureHandler = { msg in preconditionFailure(msg) }
     ) {
         self.resolvedValue = resolvedValue
-        self.container = container
         self.failureHandler = failureHandler
     }
 

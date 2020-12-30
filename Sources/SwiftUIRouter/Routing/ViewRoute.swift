@@ -1,26 +1,17 @@
 import Foundation
 
-public protocol ViewRoute: Identifiable, Equatable {
+public protocol ViewRoute {
     static var identifier: String { get }
 }
 public extension ViewRoute {
-    var id: String { Self.identifier }
-
-    func eraseToAnyViewRoute() -> AnyViewRoute {
+    static var asAnyViewRouteType: AnyViewRouteType {
         .init(self)
     }
 }
 
-public struct AnyViewRoute: ViewRoute {
-    public private(set) static var identifier: String = "invalid_route"
-    public let erasedType: Any
-
-    public init<T: ViewRoute>(_ erasedType: T) {
-        self.erasedType = erasedType
-        Self.identifier = T.identifier
-    }
-
-    public static func == (lhs: AnyViewRoute, rhs: AnyViewRoute) -> Bool {
-        type(of: lhs).identifier == type(of: rhs).identifier
+public final class AnyViewRouteType {
+    public let metatype: Any
+    public init<T: ViewRoute>(_ routeType: T.Type) {
+        self.metatype = routeType
     }
 }
